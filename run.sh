@@ -13,11 +13,13 @@ VOLUME=tutor-income-data
 PORT="${PORT:-8080}"
 BIND="${BIND:-127.0.0.1}" # set BIND=0.0.0.0 to reach it from other devices on your network
 
+# Must run on macOS's bash 3.2: there, "${arr[@]}" of an empty array trips
+# `set -u`, so it is always expanded with the ${arr[@]+"${arr[@]}"} guard.
 build_args=()
-[[ "$ENGINE" == podman ]] && build_args+=(--format docker) # keeps HEALTHCHECK
+if [[ "$ENGINE" == podman ]]; then build_args+=(--format docker); fi # keeps HEALTHCHECK
 
 build() {
-  "$ENGINE" build "${build_args[@]}" --target runtime -t "$IMAGE" .
+  "$ENGINE" build ${build_args[@]+"${build_args[@]}"} --target runtime -t "$IMAGE" .
 }
 
 start() {
@@ -36,13 +38,13 @@ stop() {
 }
 
 unit_tests() {
-  "$ENGINE" build "${build_args[@]}" --target test -t "$TEST_IMAGE" .
+  "$ENGINE" build ${build_args[@]+"${build_args[@]}"} --target test -t "$TEST_IMAGE" .
   "$ENGINE" run --rm "$TEST_IMAGE" "$@"
 }
 
 e2e_tests() {
   build
-  "$ENGINE" build "${build_args[@]}" -f Dockerfile.e2e -t "$E2E_IMAGE" .
+  "$ENGINE" build ${build_args[@]+"${build_args[@]}"} -f Dockerfile.e2e -t "$E2E_IMAGE" .
   local net="tutor-e2e-$$" app="tutor-e2e-app-$$"
   # shellcheck disable=SC2064
   trap "'$ENGINE' rm -f '$app' >/dev/null 2>&1; '$ENGINE' network rm '$net' >/dev/null 2>&1" EXIT
@@ -56,9 +58,12 @@ e2e_tests() {
     sleep 0.5
   done
   mkdir -p test-results
+  local results_mount="$PWD/test-results:/e2e/test-results"
+  # Relabel only where SELinux is on (Fedora); macOS and Docker Desktop don't need it.
+  if command -v selinuxenabled >/dev/null && selinuxenabled; then results_mount+=":Z"; fi
   "$ENGINE" run --rm --network "$net" --ipc=host \
     -e E2E_BASE_URL="http://$app:8000" \
-    -v "$PWD/test-results:/e2e/test-results:Z" \
+    -v "$results_mount" \
     "$E2E_IMAGE" pytest tests/e2e --output test-results --screenshot only-on-failure "$@"
 }
 

@@ -20,27 +20,56 @@ It shows:
 
 ## Running it
 
-Everything runs in containers. You need Podman (or Docker; set `ENGINE=docker`).
+Everything runs in containers, so the only things a machine needs are **git** and a
+**container engine**. `run.sh` uses Podman if it's installed, otherwise Docker (override with
+`ENGINE=docker` or `ENGINE=podman`). The images are built for both Intel/AMD and Apple Silicon.
 
-```sh
-./run.sh start      # build and run at http://localhost:8080
-./run.sh stop       # stop it (data is kept)
-./run.sh logs
-```
+### On a Mac (Apple Silicon or Intel)
 
-Options: `PORT=9000 ./run.sh start` changes the port. `BIND=0.0.0.0 ./run.sh start` makes it
-reachable from other devices on your network (a phone, for example). There is no login, so
-only do that on a network you trust.
+1. **Install Docker Desktop.** It's free for personal use. Get it from
+   https://www.docker.com/products/docker-desktop/ or install it with
+   `brew install --cask docker-desktop`. Open it once and wait until it says it's running.
+2. **Get the code.** The repository is public, so no GitHub account is needed. In Terminal:
+   ```sh
+   git clone https://github.com/aamerine/tutor-income.git
+   cd tutor-income
+   ./run.sh start
+   ```
+   If macOS asks to install the "command line developer tools" for `git`, click **Install**,
+   then rerun the command.
+3. **Open the app** at http://localhost:8080.
+4. **Have it start automatically:** in Docker Desktop, go to **Settings → General** and turn on
+   *Start Docker Desktop when you sign in*. The app container restarts whenever Docker starts.
 
-**Starting on boot (rootless Podman):** the container uses `--restart always`. Podman's user
-service restores such containers at login. To have it start at boot without logging in, run:
+To get updates later, run `git pull`, then `./run.sh start`. Updates never touch the saved data.
+
+Podman also works on a Mac:
+`brew install podman && podman machine init && podman machine start`. In that case, run
+`podman machine start` after each reboot.
+
+### On Linux (Podman)
+
+Run `./run.sh start`. The container uses `--restart always`, and Podman's user service restores
+it at login. To start it at boot without logging in:
 
 ```sh
 systemctl --user enable podman-restart.service
 loginctl enable-linger "$USER"
 ```
 
-Docker users can use `docker compose up -d --build` with the included `compose.yaml`.
+### Everyday commands
+
+```sh
+./run.sh start      # build (or rebuild) and run at http://localhost:8080
+./run.sh stop       # stop it (data is kept)
+./run.sh logs
+```
+
+- **Options:** `PORT=9000 ./run.sh start` changes the port. `BIND=0.0.0.0 ./run.sh start` makes
+  the app reachable from other devices on your network (a phone, for example). There is no
+  login, so only do that on a network you trust.
+- **Docker Compose:** works too, using the included `compose.yaml`:
+  `docker compose up -d --build`.
 
 ## Data and backups
 
@@ -51,7 +80,11 @@ Docker users can use `docker compose up -d --build` with the included `compose.y
 - **Download backup** saves the plan as JSON, and **Restore backup** loads one. Older backups,
   from before summer dates existed, are converted when restored: summer becomes the day after
   school ends through one year after school started.
-- `podman volume rm tutor-income-data` deletes all data.
+- `podman volume rm tutor-income-data` (or `docker volume rm …`) deletes all data.
+- **Moving to another computer:** on the old one, click **Download backup**. Start the app on
+  the new one, then click **Restore backup** and choose that file. The data lives in the
+  container engine's volume on each machine, not in the repository, so cloning alone doesn't
+  copy it.
 
 ## How the model works
 

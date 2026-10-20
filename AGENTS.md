@@ -7,10 +7,9 @@ this file covers what you need to run, change and verify the app safely.
 
 ## Ground rules
 
-- **Containers only.** The host is Fedora with rootless Podman and SELinux enforcing. There is
-  no Docker, Node, `make`, or compose provider, and the owner does not want toolchains installed
-  on the host. Build, test and run everything through `./run.sh`, which uses Podman, or Docker
-  if `ENGINE=docker`.
+- **Containers only.** Don't install Python, Node, or other toolchains on the host. Build,
+  test and run everything through `./run.sh`. The machines this runs on are listed under
+  "Machines" below.
 - **Real data lives in the Podman volume `tutor-income-data`.**
   - Before any change to schemas, storage, or anything else that touches saved plans, back the
     plan up first:
@@ -24,8 +23,40 @@ this file covers what you need to run, change and verify the app safely.
 - **Verify, don't assume.** Check package versions, release dates, calendar facts and math
   against a source or an independent calculation. Several bugs in this project's history came
   from plausible-looking assumptions.
-- **Commits** use the owner's GitHub noreply address, which is already set in git config. Don't
-  push without being asked.
+- **Git:** the repo is public at https://github.com/aamerine/tutor-income. Only the owner's
+  machine can push (it has the owner's SSH key, and commits use `aamerine <aamerine@users.noreply.github.com>`).
+  Jessica has no GitHub account, so on her Mac pull updates with `git pull`, and commit locally
+  only if asked. Never push without being asked.
+
+## Machines
+
+| | Owner's machine | Jessica's MacBook Pro (M5, Apple Silicon) |
+|---|---|---|
+| OS | Fedora Linux, SELinux enforcing | macOS |
+| Engine | rootless Podman (no Docker, no compose provider) | Docker Desktop (recommended) or Podman via `podman machine` |
+| Architecture | x86_64 | arm64 |
+| Autostart | `podman-restart.service` restores `--restart always` containers | Docker Desktop's "Start when you sign in"; the container then restarts by itself |
+
+**First-time setup on her Mac:**
+1. Docker Desktop (`brew install --cask docker-desktop`; the old `docker` cask no longer exists).
+2. `git clone https://github.com/aamerine/tutor-income.git`
+3. `./run.sh start`
+4. Her real data lives in the volume on whichever machine runs the app. To move it, use
+   **Download backup** in the app on the old machine and **Restore backup** on the new one.
+
+**Portability rules. Changes must keep working on both machines:**
+- **bash 3.2.** `run.sh` runs under macOS's bash 3.2 with `set -u`.
+  - Expand possibly-empty arrays as `${arr[@]+"${arr[@]}"}`; a plain `"${arr[@]}"` crashed
+    under Docker on macOS.
+  - No `declare -A`, `mapfile`, `${var,,}`, or other bash 4+ features.
+  - No GNU-only flags: `sed -i` without a suffix, `date -d`, `readlink -f`.
+  - To check, run the script under `docker.io/library/bash:3.2` with a stub `docker` on `PATH`.
+- **SELinux `:Z`.** Bind-mount relabeling (`:Z`) is applied only when `selinuxenabled` succeeds.
+- **arm64 images.** Every image must be published for both amd64 and arm64. Verify with
+  `podman manifest inspect` / `docker manifest inspect`.
+- **arm64 wheels.** Every Python dependency must be pure Python or have a `manylinux` aarch64
+  wheel for the image's Python version (3.13 in the app images, 3.12 in the Playwright image).
+  Otherwise the build would need a compiler.
 
 ## Commands
 
@@ -39,8 +70,8 @@ this file covers what you need to run, change and verify the app safely.
 
 - **Environment variables:** `PORT` (default 8080), `BIND` (default 127.0.0.1; there is no
   auth, so use 0.0.0.0 only on a trusted LAN), `ENGINE`.
-- **Startup on boot:** the container uses `--restart always`, and on boot it is started by
-  `podman-restart.service`. That service only restores the `always` policy.
+- **Startup on boot:** the container uses `--restart always`. On Fedora, that is the only
+  policy `podman-restart.service` restores at boot.
 
 ## Architecture
 
@@ -138,7 +169,7 @@ tests/e2e        Playwright (separate image: Dockerfile.e2e)
 ## Dependencies
 
 - **Pinning policy:** pin exact versions that were released **at least two weeks before** you
-  add them. Check release dates at `https://pypi.org/pypi/<pkg>/json` and, for npm fonts,
+  add them, and confirm arm64 support (see "Portability rules" above). Check release dates at `https://pypi.org/pypi/<pkg>/json` and, for npm fonts,
   `https://registry.npmjs.org/<pkg>`.
   - Direct dependencies go in `requirements*.txt`; indirect ones go in `constraints.txt`, which
     every requirements file references with `-c`.
