@@ -162,6 +162,9 @@ tests/e2e        Playwright (separate image: Dockerfile.e2e)
   own network with a fresh, volume-less app container.
   - **Gotcha:** never name the app container or host `app`. Chromium forces HTTPS for `.app`
     hosts, which causes `ERR_SSL_PROTOCOL_ERROR`.
+- **Sample data:** `examples/sample-plan.json` is placeholder demo data (no real students). A
+  test restores it and checks the yearly total, so update both together. If the schema changes,
+  regenerate it from `GET /api/export` after loading it.
 - **Visual changes:** look at the page, don't trust tests alone. Screenshot it from the e2e
   image with Playwright at 1280 px and 400 px wide, in both color schemes, and check that
   `scrollWidth` equals the viewport width.

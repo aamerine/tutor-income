@@ -1,0 +1,261 @@
+{
+  "settings": {
+    "school_start": "2026-08-24",
+    "school_end": "2027-06-11",
+    "summer_start": "2027-06-12",
+    "summer_end": "2027-08-23",
+    "monthly_target": 10000.0,
+    "breaks": [
+      {
+        "name": "Thanksgiving week",
+        "start": "2026-11-23",
+        "end": "2026-11-29",
+        "hours_factor": 0.0
+      },
+      {
+        "name": "Winter break",
+        "start": "2026-12-21",
+        "end": "2027-01-03",
+        "hours_factor": 0.0
+      },
+      {
+        "name": "Spring break",
+        "start": "2027-03-15",
+        "end": "2027-03-21",
+        "hours_factor": 0.0
+      }
+    ]
+  },
+  "students": [
+    {
+      "id": "06776620-c43a-4047-924d-837b0f61e2f7",
+      "name": "Student 1",
+      "rate": 50.0,
+      "school_hours": 3.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "ddde8370-7c2a-4da2-829c-51e3e84cf662",
+      "name": "Student 2",
+      "rate": 70.0,
+      "school_hours": 1.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "2cef3ef9-da50-4ce5-8e35-d253c04787f7",
+      "name": "Student 3",
+      "rate": 45.0,
+      "school_hours": 3.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "9803a46a-6053-42cc-8248-2d8c3c36406b",
+      "name": "Student 4",
+      "rate": 50.0,
+      "school_hours": 1.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "bb9f4908-e0cd-43ba-b05a-ed45947d6e87",
+      "name": "Student 5",
+      "rate": 50.0,
+      "school_hours": 1.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "b6353891-b6c1-4497-ba6d-b9292a94d77c",
+      "name": "Student 6",
+      "rate": 55.0,
+      "school_hours": 4.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "1527cd7a-92a6-449c-b3e5-4d96b310bfaa",
+      "name": "Student 7",
+      "rate": 65.0,
+      "school_hours": 2.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "09ef9d9e-8e9e-43b9-b0c4-e8f480076579",
+      "name": "Student 8",
+      "rate": 65.0,
+      "school_hours": 3.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "7e94a4ae-a0a9-4917-b647-a528e0458fd9",
+      "name": "Student 9",
+      "rate": 70.0,
+      "school_hours": 2.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "d190fa4a-233e-49e5-a44a-4abd5e86b999",
+      "name": "Student 10",
+      "rate": 55.0,
+      "school_hours": 2.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "2c9fe8f9-8219-4ce6-8727-26ac4b851c12",
+      "name": "Student 11",
+      "rate": 45.0,
+      "school_hours": 2.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "5732bb0e-9f65-462a-ba07-bc5354b97c13",
+      "name": "Student 12",
+      "rate": 50.0,
+      "school_hours": 2.5,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "d9a5c91a-c0a0-4dba-ad64-973a3d4c9183",
+      "name": "Student 13",
+      "rate": 70.0,
+      "school_hours": 1.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "db8b064f-d9cf-4f11-a7c3-15377c8fd214",
+      "name": "Student 14",
+      "rate": 55.0,
+      "school_hours": 3.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "3e170dfd-2492-4490-b5b3-547b84a57dc3",
+      "name": "Student 15",
+      "rate": 65.0,
+      "school_hours": 2.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "4e3a1905-c7db-4b74-b323-1c36d0a173bf",
+      "name": "Student 16",
+      "rate": 55.0,
+      "school_hours": 3.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "bac8aa45-b0e4-4963-b89f-3aee9dd29d1a",
+      "name": "Student 17",
+      "rate": 50.0,
+      "school_hours": 2.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "8646488e-5593-4fd2-94c5-035d5e918beb",
+      "name": "Student 18",
+      "rate": 45.0,
+      "school_hours": 3.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "e15374bf-935e-4a98-8bff-72a4306bf365",
+      "name": "Student 19",
+      "rate": 45.0,
+      "school_hours": 1.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "ccc68305-c426-4a16-b24f-f1371e6cde2e",
+      "name": "Student 20",
+      "rate": 45.0,
+      "school_hours": 2.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "90cb6ca1-cea7-4278-aa92-2e9075437e18",
+      "name": "Student 21",
+      "rate": 55.0,
+      "school_hours": 3.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "09846663-d7e7-48f1-8b6c-53db70395f9f",
+      "name": "Student 22",
+      "rate": 45.0,
+      "school_hours": 4.0,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    },
+    {
+      "id": "cc887702-355e-4043-9a22-5639f9ac42e6",
+      "name": "Student 23",
+      "rate": 45.0,
+      "school_hours": 0.5,
+      "summer_hours": 0.0,
+      "start": "2026-08-24",
+      "end": "2027-06-11",
+      "included": true
+    }
+  ]
+}

@@ -71,6 +71,17 @@ loginctl enable-linger "$USER"
 - **Docker Compose:** works too, using the included `compose.yaml`:
   `docker compose up -d --build`.
 
+## Try it with sample data
+
+[`examples/sample-plan.json`](examples/sample-plan.json) is a made-up plan with 23 students
+("Student 1" to "Student 23") at $45–70/hr. It uses the 2026–27 calendar with three breaks and
+no summer hours. It shows the app working and the summer dip in action: about $103,000 for the
+year against a $120,000 target.
+
+To load it, click **Restore backup** in the app and choose `examples/sample-plan.json` from
+the folder you cloned. **This replaces the plan currently in the app**, so click **Download
+backup** first if you want to keep it. Every save is also kept as a version in the database.
+
 ## Data and backups
 
 - The plan is stored in SQLite in the volume `tutor-income-data`. It survives container

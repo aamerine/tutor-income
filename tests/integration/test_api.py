@@ -1,5 +1,7 @@
 import hashlib
+import json
 from datetime import date
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -121,6 +123,25 @@ def test_old_backup_without_summer_dates_can_be_restored(client):
     assert saved["summer_start"] == "2027-06-12"
     assert saved["summer_end"] == "2027-08-23"
     assert "plan_start" not in saved
+
+
+SAMPLE_PLAN = Path(__file__).parents[2] / "examples" / "sample-plan.json"
+
+
+def test_sample_plan_restores_and_projects(client):
+    """examples/sample-plan.json is the demo data; it must stay loadable.
+
+    23 students, 51 hrs and $2,732.50 in a regular school week, no summer
+    hours, and 264 working school days (292 minus 28 break days).
+    """
+    res = client.put("/api/plan", json=json.loads(SAMPLE_PLAN.read_text()))
+    assert res.status_code == 200, res.text
+    p = res.json()["projection"]
+    working_weeks = (292 - 28) / 7
+    assert p["totals"]["included_students"] == 23
+    assert p["seasons"]["school"]["regular_weekly_hours"] == pytest.approx(51)
+    assert p["totals"]["revenue"] == pytest.approx(2732.5 * working_weeks, abs=0.01)  # $103,054.29
+    assert p["seasons"]["summer"]["revenue"] == 0
 
 
 def test_index_and_static_assets_are_served(client):
