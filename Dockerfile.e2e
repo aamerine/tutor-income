@@ -1,0 +1,7 @@
+# Browser tests against a running app container: `./run.sh e2e`
+FROM mcr.microsoft.com/playwright/python:v1.63.0-noble
+WORKDIR /e2e
+COPY requirements-e2e.txt constraints.txt pyproject.toml ./
+RUN PIP_ROOT_USER_ACTION=ignore pip install --no-cache-dir -r requirements-e2e.txt
+COPY tests/e2e ./tests/e2e
+CMD ["pytest", "tests/e2e"]

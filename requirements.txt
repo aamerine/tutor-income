@@ -1,0 +1,6 @@
+# Pinned to releases at least two weeks old at the time of writing (2026-10-19).
+-c constraints.txt
+fastapi==0.142.2
+starlette==1.7.0
+uvicorn==0.54.0
+pydantic==2.13.5

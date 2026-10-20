@@ -1,0 +1,15 @@
+# For Docker Compose (or podman-compose). With plain Podman, use ./run.sh instead.
+services:
+  app:
+    build:
+      context: .
+      target: runtime
+    image: localhost/tutor-income:latest
+    ports:
+      - "127.0.0.1:8080:8000"
+    volumes:
+      - tutor-income-data:/data
+    restart: unless-stopped
+
+volumes:
+  tutor-income-data:
