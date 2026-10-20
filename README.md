@@ -160,3 +160,19 @@ variables, with a matching dark theme. The chart colors `--school` and `--summer
 for colorblind safety against the card color in each theme, so re-check them if you change
 them. Jessica's name appears in `index.html` (title, header, footer) and in the greeting in
 `app.js`.
+
+## License
+
+Copyright (C) 2026 aamerine
+
+This program is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 3 of
+the License, or (at your option) any later version. It is distributed in the hope that it will
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See [LICENSE](LICENSE) for the full text.
+
+Bundled third-party files keep their own licenses:
+
+- `app/static/vendor/chart-4.5.1.umd.min.js`: Chart.js, MIT (see the header in the file).
+- `app/static/fonts/`: Fraunces and Nunito, SIL Open Font License 1.1 (see the license files
+  there).

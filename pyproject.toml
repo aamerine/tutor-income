@@ -3,6 +3,8 @@ name = "tutor-income"
 version = "0.1.0"
 description = "Models a private tutor's gross revenue across the school year and summer."
 requires-python = ">=3.13"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

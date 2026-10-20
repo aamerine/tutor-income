@@ -175,6 +175,9 @@ tests/e2e        Playwright (separate image: Dockerfile.e2e)
     every requirements file references with `-c`.
   - After adding a package, regenerate the constraints from `pip freeze` in the built images,
     then re-check the release dates.
+- **License:** the project is GPL-3.0-or-later. New dependencies and vendored files must be
+  GPLv3-compatible: MIT, BSD, Apache-2.0, OFL (for fonts) and LGPL are fine, while GPLv2-only
+  and proprietary code are not. Note any bundled file's license in the README's License section.
 - **Playwright:** the version in `requirements-e2e.txt` must match the tag of the
   `Dockerfile.e2e` base image (currently 1.63.0).
 - **Starlette TestClient** uses `httpx2`, not `httpx`.
